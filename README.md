@@ -9,9 +9,9 @@ This exporter is configured via environment variables:
 | JELLYFIN_APIKEY    | 9e49ae09128847ee667cfhj367811efv   |Authentication Token                |
 
 Or from Command Line Flags:
- `--jellyfin.apiurl=http://demo.jellyfin.org`
- `--jellyfin.apikey=9e49ae09128847ee667cfhj367811efv`
- `--web.listen-address=:9249`
+ * `--jellyfin.apiurl=http://demo.jellyfin.org`
+ * `--jellyfin.apikey=9e49ae09128847ee667cfhj367811efv`
+ * `--web.listen-address=:9249`
 ## Exported Metrics
 General metrics:
 * jellyfin_active_users                  
