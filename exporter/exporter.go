@@ -24,6 +24,7 @@ type Exporter struct {
 	activeStreamsDirectPlayCount   *prometheus.Desc
 	activeStreamsDirectStreamCount *prometheus.Desc
 	activeStreamsTranscodeCount    *prometheus.Desc
+	activeStreamsTotalCount        *prometheus.Desc
 
 	movieCount      *prometheus.Desc
 	seriesCount     *prometheus.Desc
@@ -66,6 +67,12 @@ func New(apiUrl string, apiKey string, timeout time.Duration) *Exporter {
 		activeStreamsTranscodeCount: prometheus.NewDesc(
 			prometheus.BuildFQName(Namespace, "", "active_streams_transcode_count"),
 			"Number of current active streams transcode",
+			nil,
+			nil,
+		),
+		activeStreamsTotalCount: prometheus.NewDesc(
+			prometheus.BuildFQName(Namespace, "", "active_streams_total_count"),
+			"Number of total active streams",
 			nil,
 			nil,
 		),
@@ -152,6 +159,7 @@ func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 	ch <- e.activeStreamsDirectPlayCount
 	ch <- e.activeStreamsDirectStreamCount
 	ch <- e.activeStreamsTranscodeCount
+	ch <- e.activeStreamsTotalCount
 
 	ch <- e.movieCount
 	ch <- e.seriesCount
@@ -181,6 +189,7 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 		streamsDirectPlayCount   int = 0
 		streamsDirectStreamCount int = 0
 		streamsTranscodeCount    int = 0
+		streamsTotalCount        int = 0
 	)
 
 	urlSessions := e.apiUrl + "/sessions"
@@ -229,6 +238,8 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 		}
 
 	}
+	streamsTotalCount = streamsDirectPlayCount + streamsDirectStreamCount + streamsTranscodeCount
+
 	///////////////////////////////////////// End of request to /sessions //////////////////////////////////////////////////////////////////////////
 
 	////////////////////////////////////////////// Starting request to /items/counts ///////////////////////////////////////////////////////////////
@@ -282,6 +293,12 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 		e.activeStreamsTranscodeCount,
 		prometheus.CounterValue,
 		float64(streamsTranscodeCount),
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		e.activeStreamsTotalCount,
+		prometheus.CounterValue,
+		float64(streamsTotalCount),
 	)
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
