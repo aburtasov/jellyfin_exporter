@@ -18,7 +18,8 @@ General metrics:
 * jellyfin_active_users                  
 * jellyfin_active_streams_direct_play_count
 * jellyfin_active_streams_direct_stream_count  
-* jellyfin_active_streams_transcode_count  
+* jellyfin_active_streams_transcode_count
+* jellyfin_active_streams_total_count   
 * jellyfin_movie_count      
 * jellyfin_series_count     
 * jellyfin_episode_count    
