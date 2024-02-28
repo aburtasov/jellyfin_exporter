@@ -15,7 +15,7 @@ import (
 )
 
 var (
-	apiUrl        = kingpin.Flag("jellyfin.url", "Jellyfin API url.").Default("http://127.0.0.1").String()
+	apiUrl        = kingpin.Flag("jellyfin.apiurl", "Jellyfin API url.").Default("http://127.0.0.1").String()
 	apiKey        = kingpin.Flag("jellyfin.apikey", "ApiKey for jellyfin API.").Default("").String()
 	timeout       = kingpin.Flag("jellyfin.timeout", "jellyfin connect timeout.").Default("1s").Duration()
 	listenAddress = kingpin.Flag("web.listen-address", "Address to listen on for web interface and telemetry.").Default(":9249").String()
