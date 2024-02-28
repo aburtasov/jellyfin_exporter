@@ -170,7 +170,6 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 		result                 Result
 		statistics             Statistics
 		sessionsCount          int = 0
-		streamsCount           int = 0
 		streamsDirectPlayCount int = 0
 		streamsTranscodeCount  int = 0
 	)
@@ -208,9 +207,6 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 	for _, user := range result {
 		if user.IsActive == true {
 			sessionsCount += 1
-		}
-		if user.FullNowPlayingItem.Size != 0 {
-			streamsCount += 1
 		}
 		if user.PlayState.PlayMethod == "" {
 			streamsDirectPlayCount += 1
