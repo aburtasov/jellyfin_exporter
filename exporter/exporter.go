@@ -273,31 +273,31 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 
 	ch <- prometheus.MustNewConstMetric(
 		e.activeUsers,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(sessionsCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.activeStreamsDirectPlayCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(streamsDirectPlayCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.activeStreamsDirectStreamCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(streamsDirectStreamCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.activeStreamsTranscodeCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(streamsTranscodeCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.activeStreamsTotalCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(streamsTotalCount),
 	)
 
@@ -305,71 +305,71 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 
 	ch <- prometheus.MustNewConstMetric(
 		e.movieCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.MovieCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.seriesCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.SeriesCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.episodeCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.EpisodeCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.artistCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.ArtistCount),
 	)
 	ch <- prometheus.MustNewConstMetric(
 		e.programCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.ProgramCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.trailerCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.TrailerCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.songCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.SongCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.albumCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.AlbumCount),
 	)
 	ch <- prometheus.MustNewConstMetric(
 		e.musicVideoCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.MusicVideoCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.boxSetCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.BoxSetCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.bookCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.BookCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
 		e.itemCount,
-		prometheus.CounterValue,
+		prometheus.GaugeValue,
 		float64(statistics.ItemCount),
 	)
 
