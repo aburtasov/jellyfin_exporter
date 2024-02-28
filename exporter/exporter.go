@@ -21,7 +21,6 @@ type Exporter struct {
 	apiKey string
 
 	activeUsers                  *prometheus.Desc
-	activeStreamsCount           *prometheus.Desc
 	activeStreamsDirectPlayCount *prometheus.Desc
 	activeStreamsTranscodeCount  *prometheus.Desc
 
@@ -50,12 +49,7 @@ func New(apiUrl string, apiKey string, timeout time.Duration) *Exporter {
 			nil,
 			nil,
 		),
-		activeStreamsCount: prometheus.NewDesc(
-			prometheus.BuildFQName(Namespace, "", "active_streams_count"),
-			"Number of current active streams",
-			nil,
-			nil,
-		),
+
 		activeStreamsDirectPlayCount: prometheus.NewDesc(
 			prometheus.BuildFQName(Namespace, "", "active_streams_direct_play_count"),
 			"Number of current active streams direct play",
@@ -148,7 +142,6 @@ func New(apiUrl string, apiKey string, timeout time.Duration) *Exporter {
 
 func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 	ch <- e.activeUsers
-	ch <- e.activeStreamsCount
 	ch <- e.activeStreamsDirectPlayCount
 	ch <- e.activeStreamsTranscodeCount
 
@@ -263,12 +256,6 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 		e.activeUsers,
 		prometheus.CounterValue,
 		float64(sessionsCount),
-	)
-
-	ch <- prometheus.MustNewConstMetric(
-		e.activeStreamsCount,
-		prometheus.CounterValue,
-		float64(streamsCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
