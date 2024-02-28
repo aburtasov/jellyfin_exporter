@@ -7,6 +7,7 @@ This exporter is configured via environment variables:
 | -------------------|------------------------------------|------------------------------------|                                      
 | JELLYFIN_APIURL    | http://demo.jellyfin.org           |Base APIURL of the Jellyfin Instance|             
 | JELLYFIN_APIKEY    | 9e49ae09128847ee667cfhj367811efv   |Authentication Token                |
+| WEB_LISTEN_ADDRESS |            :9249                   |Port of jellyfin_exporter           |
 
 Or from Command Line Flags:
  * `--jellyfin.apiurl=http://demo.jellyfin.org`
