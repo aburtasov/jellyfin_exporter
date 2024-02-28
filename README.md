@@ -1,6 +1,18 @@
 # jellyfin_exporter
 This is a Prometheus (https://prometheus.io) metrics exporter for Jellyfin (https://jellyfin.org).
-# Exported Metrics
+
+## Configuration
+This exporter is configured via environment variables:
+|      Name          |      Example                       |         Explanation                |               
+| -------------------|------------------------------------|------------------------------------|                                      
+| JELLYFIN_APIURL    | http://demo.jellyfin.org           |Base APIURL of the Jellyfin Instance|             
+| JELLYFIN_APIKEY    | 9e49ae09128847ee667cfhj367811efv   |Authentication Token                |
+
+Or from Command Line Flags:
+ `--jellyfin.apiurl=http://demo.jellyfin.org`
+ `--jellyfin.apikey=9e49ae09128847ee667cfhj367811efv`
+ `--web.listen-address=:9249`
+## Exported Metrics
 General metrics:
 * jellyfin_active_users                  
 * jellyfin_active_streams_count           
