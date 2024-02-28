@@ -4,6 +4,6 @@ build:
 
 .PHONY:build_image
 build_image:
-    docker build -t jellyfin_exporter .
+	docker build -t jellyfin_exporter .
 
 .DEFAULT_GOAL := build
