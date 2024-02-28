@@ -20,9 +20,10 @@ type Exporter struct {
 	apiUrl string
 	apiKey string
 
-	activeUsers                  *prometheus.Desc
-	activeStreamsDirectPlayCount *prometheus.Desc
-	activeStreamsTranscodeCount  *prometheus.Desc
+	activeUsers                    *prometheus.Desc
+	activeStreamsDirectPlayCount   *prometheus.Desc
+	activeStreamsDirectStreamCount *prometheus.Desc
+	activeStreamsTranscodeCount    *prometheus.Desc
 
 	movieCount      *prometheus.Desc
 	seriesCount     *prometheus.Desc
@@ -53,6 +54,12 @@ func New(apiUrl string, apiKey string, timeout time.Duration) *Exporter {
 		activeStreamsDirectPlayCount: prometheus.NewDesc(
 			prometheus.BuildFQName(Namespace, "", "active_streams_direct_play_count"),
 			"Number of current active streams direct play",
+			nil,
+			nil,
+		),
+		activeStreamsDirectStreamCount: prometheus.NewDesc(
+			prometheus.BuildFQName(Namespace, "", "active_streams_direct_stream_count"),
+			"Number of current active streams direct stream",
 			nil,
 			nil,
 		),
@@ -143,6 +150,7 @@ func New(apiUrl string, apiKey string, timeout time.Duration) *Exporter {
 func (e *Exporter) Describe(ch chan<- *prometheus.Desc) {
 	ch <- e.activeUsers
 	ch <- e.activeStreamsDirectPlayCount
+	ch <- e.activeStreamsDirectStreamCount
 	ch <- e.activeStreamsTranscodeCount
 
 	ch <- e.movieCount
@@ -167,11 +175,12 @@ func (e *Exporter) GetName() string {
 func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 
 	var (
-		result                 Result
-		statistics             Statistics
-		sessionsCount          int = 0
-		streamsDirectPlayCount int = 0
-		streamsTranscodeCount  int = 0
+		result                   Result
+		statistics               Statistics
+		sessionsCount            int = 0
+		streamsDirectPlayCount   int = 0
+		streamsDirectStreamCount int = 0
+		streamsTranscodeCount    int = 0
 	)
 
 	urlSessions := e.apiUrl + "/sessions"
@@ -208,8 +217,11 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 		if user.IsActive == true {
 			sessionsCount += 1
 		}
-		if user.PlayState.PlayMethod == "" {
+		if user.PlayState.PlayMethod == "DirectPlay" {
 			streamsDirectPlayCount += 1
+		}
+		if user.PlayState.PlayMethod == "DirectStream" {
+			streamsDirectStreamCount += 1
 		}
 		if user.PlayState.PlayMethod == "Transcode" {
 
@@ -258,6 +270,12 @@ func (e *Exporter) Collect(ch chan<- prometheus.Metric) {
 		e.activeStreamsDirectPlayCount,
 		prometheus.CounterValue,
 		float64(streamsDirectPlayCount),
+	)
+
+	ch <- prometheus.MustNewConstMetric(
+		e.activeStreamsDirectStreamCount,
+		prometheus.CounterValue,
+		float64(streamsDirectStreamCount),
 	)
 
 	ch <- prometheus.MustNewConstMetric(
